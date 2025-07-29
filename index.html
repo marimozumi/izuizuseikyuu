@@ -1,32 +1,91 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>【感染】ご使用のデバイスはウィルスに感染しました</title>
+  <meta charset="UTF-8" />
+  <title>【警告】</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #fff3f3;
       padding: 30px;
+      text-align: center;
     }
     .warning {
       color: red;
       font-weight: bold;
+      font-size: 2em;
+      margin-bottom: 20px;
     }
     .box {
       border: 2px dashed red;
       padding: 20px;
       background-color: #ffeaea;
+      display: inline-block;
+      max-width: 400px;
+      width: 100%;
+    }
+    #countdown {
+      font-size: 5em;
+      font-weight: bold;
+      color: darkred;
+      margin: 30px 0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    a {
+      color: darkred;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .note {
+      color: gray;
+      margin-top: 40px;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-  <h1 class="warning">ウイルスに感染したことで、正しく作動できませんでした。费用を支払い、修复してください。</h1>
+  <h1 class="warning">您的设备已感染病毒，导致无法正常运行。请支付费用进行修复。</h1>
+
+  <div id="countdown">00:05:00</div>
+
   <div class="box">
-    <p>お客様の未払い费用：<strong>¥128,000</strong></p>
-    <p>本日中にお支払いが確認できない場合、法的措置を取らせていただきます。</p>
-    <p>支払いはこちら → <a href="#izuizuseikyuu"></a></p>
+    <p>您的未付费用：<strong>¥128,000</strong></p>
+    <p>如未在今日内确认付款，我们将采取法律行动。</p>
+    <p> 请在这里付款。→ <a href="#">izuizuseikyuu</a></p>
   </div>
-  <p style="color: gray;"></p>
+
+  <p class="note"></p>
+
+  <script>
+    // カウントダウン時間（秒） 5分 = 300秒
+    let timeLeft = 300;
+
+    const countdownElem = document.getElementById('countdown');
+
+    function updateCountdown() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+
+      // 2桁表示に調整
+      const minStr = minutes.toString().padStart(2, '0');
+      const secStr = seconds.toString().padStart(2, '0');
+
+      countdownElem.textContent = `${minStr}:${secStr}`;
+
+      if (timeLeft > 0) {
+        timeLeft--;
+      } else {
+        clearInterval(timer);
+        countdownElem.textContent = "時間切れ！";
+      }
+    }
+
+    // 初期表示
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
